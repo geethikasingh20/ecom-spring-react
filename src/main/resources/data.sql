@@ -1,0 +1,3 @@
+INSERT INTO product (name, price, image) VALUES ('Eco T-Shirt', 25.0, 'https://www.auroville.com/cdn/shop/files/prod-dsc_0548_1_1.jpg?v=1727278214');
+INSERT INTO product (name, price, image) VALUES ('Bamboo Bottle', 18.0, 'https://m.media-amazon.com/images/I/4121l07JxoL._UF1000,1000_QL80_.jpg');
+INSERT INTO product (name, price, image) VALUES ('Recycled Journal', 12.5, 'https://m.media-amazon.com/images/I/61hLlbvRjdL._SL1500_.jpg');

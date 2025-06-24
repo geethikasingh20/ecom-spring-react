@@ -4,20 +4,19 @@ FROM openjdk:17-jdk-slim
 # Set working directory
 WORKDIR /app
 
-# Copy Maven project files
-COPY pom.xml mvnw* ./
+# Copy Maven wrapper and grant execute permissions
+COPY mvnw ./
 COPY .mvn .mvn
+RUN chmod +x mvnw
+
+# Copy and prepare dependencies
+COPY pom.xml ./
 RUN ./mvnw dependency:go-offline -B
 
-# Copy source and build the app
+# Copy source and build
 COPY src ./src
+COPY src/main/resources/static/ ./src/main/resources/static/
 RUN ./mvnw clean package -DskipTests
 
-# Copy in React frontend build (you can skip if already in static/)
-# COPY ../frontend/build ./src/main/resources/static
-
-# Limit Java memory usage
-ENV JAVA_OPTS="-Xms512m -Xmx512m"
-
-# Launch the app
-ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar target/*.jar"]
+# Run the app
+CMD ["java", "-jar", "target/app.jar"]

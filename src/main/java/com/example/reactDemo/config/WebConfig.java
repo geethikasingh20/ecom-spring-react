@@ -13,7 +13,7 @@ public class WebConfig implements WebMvcConfigurer  {
 	 @Override
 	    public void addCorsMappings(CorsRegistry registry) {
 	        registry.addMapping("/**") // apply to all paths
-	                .allowedOrigins("http://localhost:3000") // React dev server
+	                .allowedOrigins("http://localhost:3000","https://ecom-spring-react-1.onrender.com") // React dev server
 	                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
 	                .allowedHeaders("*");
 	    }

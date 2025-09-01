@@ -1,9 +1,13 @@
 package com.example.reactDemo.model;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Product {
@@ -14,7 +18,13 @@ public class Product {
 
 	    private String name;
 	    private double price;
-	    private String image;
+	   
+//	    private String image;
+	    
+	    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+	    private List<ProductImage> images;
+	    
+	    
 		public Long getId() {
 			return id;
 		}
@@ -33,12 +43,14 @@ public class Product {
 		public void setPrice(double price) {
 			this.price = price;
 		}
-		public String getImage() {
-			return image;
+		public List<ProductImage> getImages() {
+			return images;
 		}
-		public void setImage(String image) {
-			this.image = image;
+		public void setImages(List<ProductImage> images) {
+			this.images = images;
 		}
+		
+		
 	    
 	    
 }

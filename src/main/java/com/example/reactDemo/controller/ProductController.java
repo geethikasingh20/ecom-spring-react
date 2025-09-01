@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.reactDemo.model.Product;
+import com.example.reactDemo.model.ProductImage;
+import com.example.reactDemo.repo.ProductImageRepository;
 import com.example.reactDemo.repo.ProductRepository;
 
 @RestController
@@ -24,6 +26,9 @@ public class ProductController {
 
     @Autowired
     private ProductRepository productRepository;
+    
+    @Autowired
+    private ProductImageRepository productImageRepository;
 
     @GetMapping
     public List<Product> getAllProducts() {
@@ -51,7 +56,7 @@ public class ProductController {
                 .map(product -> {
                     product.setName(updated.getName());
                     product.setPrice(updated.getPrice());
-                    product.setImage(updated.getImage());
+                    product.setImages(updated.getImages());
                     Product saved = productRepository.save(product);
                     return ResponseEntity.ok(saved);
                 })
@@ -73,5 +78,20 @@ public class ProductController {
 		
 		return productRepository.findByNameContainingIgnoreCase(query); 
 		}
+	
+	
+	@PostMapping("/{id}/images")
+	public ResponseEntity<?> addImages(@PathVariable Long id, @RequestBody List<String> imageUrls) {
+
+		Product product = productRepository.findById(id)
+	            .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
+
+		List<ProductImage> images = imageUrls.stream()
+	            .map(url -> new ProductImage(url, product))
+	            .toList();
+
+	    productImageRepository.saveAll(images);
+	    return ResponseEntity.ok("Images added");
+	}
 	 
 }

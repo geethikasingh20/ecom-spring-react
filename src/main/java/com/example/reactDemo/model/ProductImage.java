@@ -1,5 +1,7 @@
 package com.example.reactDemo.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -17,8 +19,9 @@ public class ProductImage {
 
 	    private String imageUrl;
 
-	    @ManyToOne(fetch = FetchType.LAZY)
+	    @ManyToOne
 	    @JoinColumn(name = "product_id")
+	    @JsonBackReference
 	    private Product product;
 	    
 	    

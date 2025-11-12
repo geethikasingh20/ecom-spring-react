@@ -1,6 +1,7 @@
 # Use official OpenJDK image
-FROM openjdk:17-jdk-slim
+#FROM openjdk:17-jdk-slim
 #FROM openjdk:17.0.2-jdk-slim-buster
+FROM eclipse-temurin:17-jdk-jammy AS builder
 
 # Set working directory
 WORKDIR /app
